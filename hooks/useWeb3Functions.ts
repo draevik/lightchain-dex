@@ -364,8 +364,14 @@ const useWeb3Functions = () => {
       let simulate;
 
       const liquidity = (pair.liquidity * BigInt(percent)) / 100n;
-      const amountMin0 = BigInt((liquidity * pair.reserve0) / pair.totalSupply);
-      const amountMin1 = BigInt((liquidity * pair.reserve1) / pair.totalSupply);
+      const amountMin0 = BigInt(
+        (liquidity * pair.reserve0 * BigInt((100 - slippageTolerance) * 100)) /
+        (pair.totalSupply * 10000n)
+      );
+      const amountMin1 = BigInt(
+        (liquidity * pair.reserve1 * BigInt((100 - slippageTolerance) * 100)) /
+        (pair.totalSupply * 10000n)
+      );
 
       const params = [
         address,
