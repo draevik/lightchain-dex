@@ -304,8 +304,8 @@ const useWeb3Functions = () => {
       let simulate;
       const block = await publicClient.getBlock();
       const deadline = BigInt(Number(block.timestamp) + 60 * txDeadline);
-      const amountAMin = (amountA * BigInt(slippageTolerance * 100)) / 10000n;
-      const amountBMin = (amountB * BigInt(slippageTolerance * 100)) / 10000n;
+      const amountAMin = (amountA * BigInt((100 - slippageTolerance) * 100)) / 10000n;
+      const amountBMin = (amountB * BigInt((100 - slippageTolerance) * 100)) / 10000n;
 
       if (tokenB.address && tokenA.symbol === chain.nativeCurrency.symbol) {
         simulate = await routerV2Contract.simulate.addLiquidityETH(
